@@ -13,7 +13,7 @@ export const App = () => {
         <Route exact path="/" element={<ShowList />} />
       </Routes>
       <Routes>
-        <Route exact path="/showDetails/:showID" element={<ShowDetails />} />
+        <Route exact path="/shows/id/:showID" element={<ShowDetails />} />
       </Routes>
     </Router>
   )

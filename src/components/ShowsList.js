@@ -25,16 +25,12 @@ const Card = styled.div`
   margin: 10px auto;
 
   :hover {
-    -webkit-box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
-    -moz-box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
-    box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
     transition: 0.3s;
   }
 
   @media(min-width:885px) {
-    width: 300px;
+    width: 400px;
     height: 300px;
- 
   }
 `;
 
@@ -42,6 +38,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px auto;
+  gap:10px;
 `;
 
 const Button = styled.button`
@@ -51,7 +48,7 @@ const Button = styled.button`
   background-color: red;
   border:none;
   border-radius: 5px;
-  margin: auto 8px;
+
 
   :hover {
     background-color:#373737;
@@ -86,6 +83,7 @@ export const ShowList = () => {
       <Jambotron />
       <MainContent>
         <ButtonContainer>
+          <p> Page {pageNumber}/{pageLimit}</p>
           <Button type="button" onClick={previousPage} disabled={pageNumber === 1}>Previous Page</Button>
           <Button type="button" onClick={nextPage} disabled={pageNumber === 10}>Next Page</Button>
         </ButtonContainer>
