@@ -1,24 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
+import { Jambotron } from './Jambotron';
+
+const MainContent = styled.main` 
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 const CardContainer = styled.div`
   display: flex;
+  margin: 0 20px;
   flex-wrap: wrap;
   justify-content: center;
+  justify-content: space-evenly;
 `;
 
 const Card = styled.div`
-  box-shadow: 0 4px 8px 0 red;
-  transition: 0.3s;
   width:50%;
   height: auto;
   padding: 20px;
-  background-color: red;
-  border: 2px solid blue;
+  border: 1px solid white;
   margin: 10px auto;
+
+  :hover {
+    -webkit-box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
+    -moz-box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
+    box-shadow: 0px 0px 98px 13px rgba(252,252,252,1);
+    transition: 0.3s;
+  }
 
   @media(min-width:885px) {
     width: 300px;
+    height: 300px;
+ 
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
+`;
+
+const Button = styled.button`
+  padding: 10px;
+  font-size: 16px;
+  color: white;
+  background-color: red;
+  border:none;
+  border-radius: 5px;
+  margin: auto 8px;
+
+  :hover {
+    background-color:#373737;
+    transition:all 0.3s ease-in-out;
   }
 `;
 
@@ -36,8 +73,6 @@ export const ShowList = () => {
       })
   }, [pageNumber, pageLimit])
 
-  console.log(shows)
-
   const nextPage = () => {
     setPageNumber(pageNumber + 1);
   };
@@ -47,19 +82,25 @@ export const ShowList = () => {
   };
 
   return (
-    <div>
-      <button type="button" onClick={previousPage} disabled={pageNumber === 1}>Previous Page</button>
-      <button type="button" onClick={nextPage} disabled={pageNumber === 10}>Next Page</button>
-      <CardContainer>
-        {shows.map((show) => (
-          <Card key={show.show_id}>
-            <h1>{show.title}</h1>
-            {show.description === '' ? <p /> : <p>{show.description}</p>}
-            <button type="button">More details</button>
-          </Card>
-        ))}
-      </CardContainer>
-
-    </div>
+    <>
+      <Jambotron />
+      <MainContent>
+        <ButtonContainer>
+          <Button type="button" onClick={previousPage} disabled={pageNumber === 1}>Previous Page</Button>
+          <Button type="button" onClick={nextPage} disabled={pageNumber === 10}>Next Page</Button>
+        </ButtonContainer>
+        <CardContainer>
+          {shows.map((show) => (
+            <Link to={`/shows/${show.show_id}`}>
+              <Card key={show.show_id}>
+                <h1>{show.title}</h1>
+                {show.description === '' ? <p /> : <p>{show.description}</p>}
+                <Button type="button">More details</Button>
+              </Card>
+            </Link>
+          ))}
+        </CardContainer>
+      </MainContent>
+    </>
   )
 }
