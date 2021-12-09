@@ -1,13 +1,22 @@
-import React from 'react'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import { Navbar } from 'components/NavBar';
+import { Jambotron } from 'components/Jambotron';
+import { ShowList } from './components/ShowsList';
+import { ShowDetails } from './components/ShowDetails';
 
 export const App = () => {
-  fetch('https://dls-shows-api.herokuapp.com/shows')
-    .then((res) => res.json())
-    .then((json) => console.log(json.response))
-
   return (
-    <div>
-      Find me in src/app.js!
-    </div>
+    <Router>
+      <Navbar />
+      <Jambotron />
+      <Routes>
+        <Route exact path="/" element={<ShowList />} />
+      </Routes>
+      <Routes>
+        <Route exact path="/showDetails" element={<ShowDetails />} />
+      </Routes>
+    </Router>
   )
 }
