@@ -89,7 +89,7 @@ export const ShowList = () => {
         </ButtonContainer>
         <CardContainer>
           {shows.map((show) => (
-            <Link to={`/shows/${show.show_id}`}>
+            <Link key={show.show_id} to={`/shows/${show.show_id}`}>
               <Card key={show.show_id}>
                 <h1>{show.title}</h1>
                 {show.description === '' ? <p /> : <p>{show.description}</p>}

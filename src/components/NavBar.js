@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 const Header = styled.header`
@@ -39,8 +40,12 @@ export const Navbar = () => {
       <Title>DL:s shows API!</Title>
       <Nav>
         <ul>
-          <ListItem>Home</ListItem>
-          <ListItem>Documentation API</ListItem>
+          <Link to="/">
+            <ListItem>Home</ListItem>
+          </Link>
+          <Link to="/documentation">
+            <ListItem>Documentation API</ListItem>
+          </Link>
           <ListItem>TV Shows</ListItem>
           <ListItem>Movies</ListItem>
         </ul>
