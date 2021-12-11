@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -32,6 +32,11 @@ const SingleShowContainer = styled.div`
   border: 1px solid white;
   margin: 20px auto;
 
+  a {
+    color: blue;
+    text-decoration: underline;
+  }
+
   @media(min-width:885px) {
     width: 700px;
     height: auto;
@@ -49,10 +54,11 @@ export const Documentation = () => {
         </Link>
         <Wrapper>
           <SingleShowContainer>
-            <h1>Some info comes soon :)</h1>
+            <h1>Documentation API</h1>
+            <p>Read more <a href="https://dls-shows-api.herokuapp.com/">here</a>
+            </p>
           </SingleShowContainer>
         </Wrapper>
-
       </div>
     </>
   )

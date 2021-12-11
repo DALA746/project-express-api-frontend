@@ -37,7 +37,9 @@ const ListItem = styled.li`
 export const Navbar = () => {
   return (
     <Header>
-      <Title>DL:s shows API!</Title>
+      <Link to="/">
+        <Title>DL:s shows API!</Title>
+      </Link>
       <Nav>
         <ul>
           <Link to="/">
@@ -46,8 +48,6 @@ export const Navbar = () => {
           <Link to="/documentation">
             <ListItem>Documentation API</ListItem>
           </Link>
-          <ListItem>TV Shows</ListItem>
-          <ListItem>Movies</ListItem>
         </ul>
       </Nav>
     </Header>

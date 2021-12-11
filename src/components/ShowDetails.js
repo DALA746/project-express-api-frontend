@@ -8,15 +8,15 @@ import animationData from '../animations/70051-red-loading-kevin.json';
 
 const Div = styled.div`
   background: black;
-  height: 80vh;
-  width: 100vw;
-  background-position: center;
-  background-repeat: no-repeat;
-  /* background-size: cover; */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgb(0, 0, 0);
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 `;
 
 const Button = styled.button`
@@ -76,6 +76,7 @@ export const ShowDetails = () => {
       .then((res) => res.json())
       .then((json) => {
         setShow(json.response)
+        setLoading(false)
       })
       .finally(() => setLoading(false))
   }, [showID])
@@ -94,9 +95,9 @@ export const ShowDetails = () => {
         <Wrapper>
           <SingleShowContainer>
             <h1>{show.title}</h1>
-            <p>Cast: {show.cast}</p>
-            <p>Country: {show.country}</p>
-            <p>Description: {show.description}</p>
+            {show.cast === '' ? <p /> : <p>{show.cast}</p>}
+            {show.country === '' ? <p /> : <p>{show.country}</p>}
+            {show.description === '' ? <p /> : <p>{show.description}</p>}
             <p>Realese year: {show.release_year}</p>
             <p>Type: {show.type}</p>
           </SingleShowContainer>
