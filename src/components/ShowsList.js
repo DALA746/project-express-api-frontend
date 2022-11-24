@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 import { Jambotron } from './Jambotron';
 
-const MainContent = styled.main` 
-  display:flex;
+const MainContent = styled.main`
+  display: flex;
   flex-direction: column;
   justify-content: center;
 `;
@@ -18,7 +18,7 @@ const CardContainer = styled.div`
 `;
 
 const Card = styled.div`
-  width:50%;
+  width: 50%;
   height: auto;
   padding: 20px;
   border: 1px solid white;
@@ -28,7 +28,7 @@ const Card = styled.div`
     transition: 0.3s;
   }
 
-  @media(min-width:885px) {
+  @media (min-width: 885px) {
     width: 400px;
     height: 300px;
   }
@@ -38,7 +38,7 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px auto;
-  gap:10px;
+  gap: 10px;
 `;
 
 const Button = styled.button`
@@ -46,29 +46,30 @@ const Button = styled.button`
   font-size: 16px;
   color: white;
   background-color: red;
-  border:none;
+  border: none;
   border-radius: 5px;
 
-
   :hover {
-    background-color:#373737;
-    transition:all 0.3s ease-in-out;
+    background-color: #373737;
+    transition: all 0.3s ease-in-out;
   }
 `;
 
 export const ShowList = () => {
-  const [shows, setShows] = useState([])
-  const [pageNumber, setPageNumber] = useState(1)
+  const [shows, setShows] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
   // const [pageLimit, setPageLimit] = useState(5)
-  const pageLimit = 10
+  const pageLimit = 10;
 
   useEffect(() => {
-    fetch(`https://dls-shows-api.herokuapp.com/shows?page=${pageNumber}&limit=${pageLimit}`)
+    fetch(
+      `https://project-express-api-hmplolkeya-uc.a.run.app/shows?page=${pageNumber}&limit=${pageLimit}`
+    )
       .then((res) => res.json())
       .then((json) => {
-        setShows(json)
-      })
-  }, [pageNumber, pageLimit])
+        setShows(json);
+      });
+  }, [pageNumber, pageLimit]);
 
   const nextPage = () => {
     setPageNumber(pageNumber + 1);
@@ -83,9 +84,19 @@ export const ShowList = () => {
       <Jambotron />
       <MainContent>
         <ButtonContainer>
-          <p> Page {pageNumber}/{pageLimit}</p>
-          <Button type="button" onClick={previousPage} disabled={pageNumber === 1}>Previous Page</Button>
-          <Button type="button" onClick={nextPage} disabled={pageNumber === 10}>Next Page</Button>
+          <p>
+            {' '}
+            Page {pageNumber}/{pageLimit}
+          </p>
+          <Button
+            type='button'
+            onClick={previousPage}
+            disabled={pageNumber === 1}>
+            Previous Page
+          </Button>
+          <Button type='button' onClick={nextPage} disabled={pageNumber === 10}>
+            Next Page
+          </Button>
         </ButtonContainer>
         <CardContainer>
           {shows.map((show) => (
@@ -93,12 +104,12 @@ export const ShowList = () => {
               <Card key={show.show_id}>
                 <h1>{show.title}</h1>
                 {show.description === '' ? <p /> : <p>{show.description}</p>}
-                <Button type="button">More details</Button>
+                <Button type='button'>More details</Button>
               </Card>
             </Link>
           ))}
         </CardContainer>
       </MainContent>
     </>
-  )
-}
+  );
+};
