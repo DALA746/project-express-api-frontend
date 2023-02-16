@@ -1,14 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Reenie+Beanie&display=swap');
+
 :root {
-  --black: #141414;
-  --red: #e50914;
+  --dark_blue: #001220;
+  --white: #d9d9d9;
+  --orange: #fa7268;
+  --pink: #c62368;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  background-color: black;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--dark_blue);
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -20,6 +22,10 @@ code {
 }
 
 a {
-  color: white;
+  color: var(--white);
   text-decoration: none;
+}
+
+.icons {
+  font-size: 50px;
 }

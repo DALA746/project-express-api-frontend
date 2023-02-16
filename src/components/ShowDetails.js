@@ -24,13 +24,13 @@ const Button = styled.button`
   font-size: 16px;
   color: white;
   background-color: red;
-  border:none;
+  border: none;
   border-radius: 5px;
   margin-left: 40px;
 
   :hover {
-    background-color:#373737;
-    transition:all 0.3s ease-in-out;
+    background-color: #373737;
+    transition: all 0.3s ease-in-out;
   }
 `;
 
@@ -49,7 +49,7 @@ const SingleShowContainer = styled.div`
   border: 1px solid white;
   margin: 20px auto;
 
-  @media(min-width:885px) {
+  @media (min-width: 885px) {
     width: 700px;
     height: auto;
   }
@@ -58,7 +58,7 @@ const SingleShowContainer = styled.div`
 export const ShowDetails = () => {
   const { showID } = useParams();
   const [show, setShow] = useState([]);
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true);
 
   const defaultOptions = {
     loop: true,
@@ -69,23 +69,29 @@ export const ShowDetails = () => {
     }
   };
 
-  console.log(showID)
+  console.log(showID);
 
   useEffect(() => {
-    fetch(`https://dls-shows-api.herokuapp.com/shows/id/${showID}`)
+    fetch(
+      `https://project-express-api-production.up.railway.app/shows/id/${showID}`
+    )
       .then((res) => res.json())
       .then((json) => {
-        setShow(json.response)
-        setLoading(false)
+        setShow(json.response);
+        setLoading(false);
       })
-      .finally(() => setLoading(false))
-  }, [showID])
+      .finally(() => setLoading(false));
+  }, [showID]);
 
   // add loading
 
   return (
     <>
-      {loading && <Div><Lottie options={defaultOptions} height={200} width={400} /></Div>}
+      {loading && (
+        <Div>
+          <Lottie options={defaultOptions} height={200} width={400} />
+        </Div>
+      )}
       <div>
         <Link to="/shows/">
           <ButtonContainer>
@@ -102,8 +108,7 @@ export const ShowDetails = () => {
             <p>Type: {show.type}</p>
           </SingleShowContainer>
         </Wrapper>
-
       </div>
     </>
-  )
-}
+  );
+};

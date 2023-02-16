@@ -63,11 +63,12 @@ export const ShowList = () => {
 
   useEffect(() => {
     fetch(
-      `https://project-express-api-hmplolkeya-uc.a.run.app/shows?page=${pageNumber}&limit=${pageLimit}`
+      `https://project-express-api-production.up.railway.app/shows?page=${pageNumber}&limit=${pageLimit}`
     )
       .then((res) => res.json())
       .then((json) => {
         setShows(json);
+        console.log(json);
       });
   }, [pageNumber, pageLimit]);
 
@@ -89,12 +90,12 @@ export const ShowList = () => {
             Page {pageNumber}/{pageLimit}
           </p>
           <Button
-            type='button'
+            type="button"
             onClick={previousPage}
             disabled={pageNumber === 1}>
             Previous Page
           </Button>
-          <Button type='button' onClick={nextPage} disabled={pageNumber === 10}>
+          <Button type="button" onClick={nextPage} disabled={pageNumber === 10}>
             Next Page
           </Button>
         </ButtonContainer>
@@ -104,7 +105,7 @@ export const ShowList = () => {
               <Card key={show.show_id}>
                 <h1>{show.title}</h1>
                 {show.description === '' ? <p /> : <p>{show.description}</p>}
-                <Button type='button'>More details</Button>
+                <Button type="button">More details</Button>
               </Card>
             </Link>
           ))}
