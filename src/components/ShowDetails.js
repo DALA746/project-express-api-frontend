@@ -1,38 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { TbMovie } from 'react-icons/tb';
+import { BsDisplay } from 'react-icons/bs';
 
-import Lottie from 'react-lottie';
-import animationData from '../animations/70051-red-loading-kevin.json';
-// this comp will show details about the shows, link will go from showList comp
-
-const Div = styled.div`
-  background: black;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgb(0, 0, 0);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  font-size: 16px;
-  color: white;
-  background-color: red;
-  border: none;
-  border-radius: 5px;
-  margin-left: 40px;
-
-  :hover {
-    background-color: #373737;
-    transition: all 0.3s ease-in-out;
-  }
-`;
+import { Loading } from './Loading';
+import { Button } from '../styles/styles';
 
 const Wrapper = styled.div`
   display: flex;
@@ -46,8 +19,16 @@ const ButtonContainer = styled.div`
 const SingleShowContainer = styled.div`
   width: 80%;
   padding: 20px;
-  border: 1px solid white;
+  border: 1px solid var(--white);
   margin: 20px auto;
+  background-color: var(--orange);
+  color: var(--dark_blue);
+  border-radius: 10px;
+
+  div {
+    display: flex;
+    justify-content: end;
+  }
 
   @media (min-width: 885px) {
     width: 700px;
@@ -59,17 +40,6 @@ export const ShowDetails = () => {
   const { showID } = useParams();
   const [show, setShow] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice'
-    }
-  };
-
-  console.log(showID);
 
   useEffect(() => {
     fetch(
@@ -83,15 +53,9 @@ export const ShowDetails = () => {
       .finally(() => setLoading(false));
   }, [showID]);
 
-  // add loading
-
   return (
     <>
-      {loading && (
-        <Div>
-          <Lottie options={defaultOptions} height={200} width={400} />
-        </Div>
-      )}
+      {loading && <Loading />}
       <div>
         <Link to="/shows/">
           <ButtonContainer>
@@ -100,10 +64,18 @@ export const ShowDetails = () => {
         </Link>
         <Wrapper>
           <SingleShowContainer>
+            <div>
+              {show.type === 'Movie' ? (
+                <TbMovie className="icons" />
+              ) : (
+                <BsDisplay className="icons" />
+              )}
+            </div>
             <h1>{show.title}</h1>
-            {show.cast === '' ? <p /> : <p>{show.cast}</p>}
-            {show.country === '' ? <p /> : <p>{show.country}</p>}
+            {show.cast === '' ? <p /> : <p>Cast: {show.cast}</p>}
+            {show.country === '' ? <p /> : <p>Country: {show.country}</p>}
             {show.description === '' ? <p /> : <p>{show.description}</p>}
+            <p>Rating: {show.rating}</p>
             <p>Realese year: {show.release_year}</p>
             <p>Type: {show.type}</p>
           </SingleShowContainer>

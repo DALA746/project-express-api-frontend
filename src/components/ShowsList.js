@@ -1,89 +1,36 @@
 /* eslint-disable react/jsx-closing-bracket-location */
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { TbMovie } from 'react-icons/tb';
 import { BsDisplay } from 'react-icons/bs';
-
+import { Loading } from './Loading';
+import {
+  Button,
+  CardContainer,
+  MainContent,
+  SearchContainer,
+  Card,
+  Container,
+  ButtonContainer
+} from '../styles/styles';
+import { fetchData } from '../utils/fetch';
 import { Jambotron } from './Jambotron';
-
-const MainContent = styled.main`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-const CardContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-  padding: 60px 20px;
-  max-width: 1200px;
-  width: 100%;
-`;
-
-const Card = styled.div`
-  background-color: var(--pink);
-  border-radius: 10px;
-  padding: 20px;
-  height: 300px;
-  max-width: 400px;
-
-  div {
-    display: flex;
-    justify-content: end;
-  }
-
-  :hover {
-    background-color: var(--orange);
-    color: var(--dark_blue);
-    transition: 0.6s ease-out;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 20px auto;
-  gap: 10px;
-`;
-
-const SearchContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Button = styled.button`
-  padding: 10px;
-  font-size: 16px;
-  color: white;
-  background-color: red;
-  border: none;
-  border-radius: 5px;
-
-  :hover {
-    background-color: #373737;
-    transition: all 0.3s ease-in-out;
-  }
-`;
 
 export const ShowList = () => {
   const [shows, setShows] = useState([]);
   const [title, setTitle] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
-  // const [pageLimit, setPageLimit] = useState(5)
+  const [loading, setLoading] = useState(false);
   const pageLimit = 10;
 
   useEffect(() => {
-    fetch(
-      `https://project-express-api-production.up.railway.app/shows?page=${pageNumber}&limit=${pageLimit}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data, 'DATA');
-        setShows(data);
-      });
+    const getData = async () => {
+      const data = await fetchData(
+        `/shows?page=${pageNumber}&limit=${pageLimit}`
+      );
+      setShows(data);
+    };
+    getData();
   }, [pageNumber, pageLimit]);
 
   const nextPage = () => {
@@ -96,42 +43,33 @@ export const ShowList = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
-    fetch(
-      `https://project-express-api-production.up.railway.app/shows?title=${title}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data, 'DATA FROM SEARCH');
-        setShows(data);
-        setTitle('');
-      })
-      .catch(() => {
-        console.error();
-        setTitle('');
-      });
+    const getData = async () => {
+      const data = await fetchData(`/shows?title=${title}`);
+      setShows(data);
+      setLoading(true);
+      setTimeout(() => setLoading(false), 1000);
+    };
+    getData();
   };
-
-  console.log(shows, 'this is shows');
 
   return (
     <>
       <Jambotron />
-
       <MainContent>
         <h1>Our Movies & TV Series</h1>
         <SearchContainer>
           <input
             type="text"
             value={title}
+            placeholder="Enter title here..."
             onChange={(event) => setTitle(event.target.value)}
           />
           <Button type="button" onClick={handleSubmit}>
-            Search by title
+            Search
           </Button>
         </SearchContainer>
-
         <CardContainer>
+          {loading && <Loading />}
           {shows.success ? (
             shows.response.map((show) => (
               <Link key={show.show_id} to={`/shows/${show.show_id}`}>
@@ -149,7 +87,9 @@ export const ShowList = () => {
               </Link>
             ))
           ) : (
-            <p>No results</p>
+            <Container>
+              <p>No results</p>
+            </Container>
           )}
         </CardContainer>
         <ButtonContainer>

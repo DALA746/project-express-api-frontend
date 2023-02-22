@@ -48,7 +48,7 @@ export const Navbar = () => {
       <Link to="/">
         <InlineDiv>
           <TbMovie className="icons" />
-          <Title>MovieTime</Title>
+          <Title>MovieTime API</Title>
         </InlineDiv>
       </Link>
       <Nav>
