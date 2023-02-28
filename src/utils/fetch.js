@@ -4,7 +4,7 @@ export const fetchData = async (endpoint) => {
   const response = await fetch(`${BASE_URL}${endpoint}`);
   const data = await response.json();
   if (!data) {
-    return alert('Something is wrong!');
+    alert('Something is wrong!');
   }
   return data;
 };
