@@ -2,10 +2,14 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
   padding: 10px;
-  font-size: 16px;
   color: var(--white);
   background-color: var(--orange);
   border: none;
+  border-radius: ${(props) => (props.border ? '0 10px 10px 0' : '10px')};
+
+  :disabled {
+    opacity: 0.4;
+  }
 
   :hover {
     background-color: #373737;
@@ -25,9 +29,7 @@ export const MainContent = styled.main`
 export const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
-  padding: 60px 20px;
-  max-width: 1200px;
+  grid-gap: 40px;
   width: 100%;
   position: relative;
 `;
@@ -37,12 +39,6 @@ export const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: 300px;
-  max-width: 400px;
-
-  div {
-    display: flex;
-    justify-content: end;
-  }
 
   :hover {
     background-color: var(--orange);
@@ -59,18 +55,31 @@ export const ButtonContainer = styled.div`
 `;
 
 export const SearchContainer = styled.div`
-  padding: 60px 20px;
-  max-width: 1200px;
   width: 100%;
+  margin: 10px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   input {
     width: 100%;
     padding: 10px;
     max-width: 300px;
     border: none;
+    border-radius: 10px 0 0 10px;
   }
 `;
 
 export const Container = styled.div`
   height: 400px;
+`;
+
+export const Wrapper = styled.div`
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  max-width: 1300px;
 `;

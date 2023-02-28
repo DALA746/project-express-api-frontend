@@ -5,7 +5,7 @@ import { TbMovie } from 'react-icons/tb';
 import { BsDisplay } from 'react-icons/bs';
 
 import { Loading } from './Loading';
-import { Button } from '../styles/styles';
+import { Button } from '../styles/Showlist';
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 const ButtonContainer = styled.div`
   width: 300px;
+  padding: 0 40px;
 `;
 
 const SingleShowContainer = styled.div`
@@ -28,6 +29,10 @@ const SingleShowContainer = styled.div`
   div {
     display: flex;
     justify-content: end;
+  }
+
+  span {
+    font-weight: bold;
   }
 
   @media (min-width: 885px) {
@@ -72,12 +77,30 @@ export const ShowDetails = () => {
               )}
             </div>
             <h1>{show.title}</h1>
-            {show.cast === '' ? <p /> : <p>Cast: {show.cast}</p>}
-            {show.country === '' ? <p /> : <p>Country: {show.country}</p>}
+            {show.cast === '' ? (
+              <p />
+            ) : (
+              <p>
+                <span>Cast:</span> {show.cast}
+              </p>
+            )}
+            {show.country === '' ? (
+              <p />
+            ) : (
+              <p>
+                <span>Country:</span> {show.country}
+              </p>
+            )}
             {show.description === '' ? <p /> : <p>{show.description}</p>}
-            <p>Rating: {show.rating}</p>
-            <p>Realese year: {show.release_year}</p>
-            <p>Type: {show.type}</p>
+            <p>
+              <span>Rating:</span> {show.rating}
+            </p>
+            <p>
+              <span>Realese year:</span> {show.release_year}
+            </p>
+            <p>
+              <span>Type:</span> {show.type}
+            </p>
           </SingleShowContainer>
         </Wrapper>
       </div>

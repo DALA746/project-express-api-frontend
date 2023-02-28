@@ -11,8 +11,9 @@ import {
   SearchContainer,
   Card,
   Container,
-  ButtonContainer
-} from '../styles/styles';
+  ButtonContainer,
+  Wrapper
+} from '../styles/Showlist';
 import { fetchData } from '../utils/fetch';
 import { Jambotron } from './Jambotron';
 
@@ -56,57 +57,62 @@ export const ShowList = () => {
     <>
       <Jambotron />
       <MainContent>
-        <h1>Our Movies & TV Series</h1>
-        <SearchContainer>
-          <input
-            type="text"
-            value={title}
-            placeholder="Enter title here..."
-            onChange={(event) => setTitle(event.target.value)}
-          />
-          <Button type="button" onClick={handleSubmit}>
-            Search
-          </Button>
-        </SearchContainer>
-        <CardContainer>
-          {loading && <Loading />}
-          {shows.success ? (
-            shows.response.map((show) => (
-              <Link key={show.show_id} to={`/shows/${show.show_id}`}>
-                <Card key={show.show_id}>
-                  <div>
-                    {show.type === 'Movie' ? (
-                      <TbMovie className="icons" />
+        <Wrapper>
+          <h1>Our Movies & TV Series</h1>
+          <SearchContainer>
+            <input
+              type="text"
+              value={title}
+              placeholder="Enter title here..."
+              onChange={(event) => setTitle(event.target.value)}
+            />
+            <Button border type="button" onClick={handleSubmit}>
+              Search
+            </Button>
+          </SearchContainer>
+          <CardContainer>
+            {loading && <Loading />}
+            {shows.success ? (
+              shows.response.map((show) => (
+                <Link key={show.show_id} to={`/shows/${show.show_id}`}>
+                  <Card key={show.show_id}>
+                    <div>
+                      {show.type === 'Movie' ? (
+                        <TbMovie className="icons" />
+                      ) : (
+                        <BsDisplay className="icons" />
+                      )}
+                    </div>
+                    <h2>{show.title}</h2>
+                    {show.description === '' ? (
+                      <p />
                     ) : (
-                      <BsDisplay className="icons" />
+                      <p>{show.description}</p>
                     )}
-                  </div>
-                  <h2>{show.title}</h2>
-                  {show.description === '' ? <p /> : <p>{show.description}</p>}
-                </Card>
-              </Link>
-            ))
-          ) : (
-            <Container>
-              <p>No results</p>
-            </Container>
-          )}
-        </CardContainer>
-        <ButtonContainer>
-          <p>
-            {' '}
-            Page {pageNumber}/{pageLimit}
-          </p>
-          <Button
-            type="button"
-            onClick={previousPage}
-            disabled={pageNumber === 1}>
-            Previous Page
-          </Button>
-          <Button type="button" onClick={nextPage} disabled={pageNumber === 10}>
-            Next Page
-          </Button>
-        </ButtonContainer>
+                  </Card>
+                </Link>
+              ))
+            ) : (
+              <Container>
+                <p>No results</p>
+              </Container>
+            )}
+          </CardContainer>
+          <ButtonContainer>
+            <Button
+              type="button"
+              onClick={previousPage}
+              disabled={pageNumber === 1}>
+              Previous Page
+            </Button>
+            <Button
+              type="button"
+              onClick={nextPage}
+              disabled={pageNumber === 10}>
+              Next Page
+            </Button>
+          </ButtonContainer>
+        </Wrapper>
       </MainContent>
     </>
   );

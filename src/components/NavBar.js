@@ -23,6 +23,7 @@ const Nav = styled.nav`
 
 const Title = styled.h1`
   float: left;
+  font-size: 29px;
 `;
 
 const InlineDiv = styled.div`
