@@ -23,6 +23,7 @@ export const ShowList = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(false);
   const pageLimit = 10;
+  console.log(shows, 'shows');
 
   useEffect(() => {
     const getData = async () => {
