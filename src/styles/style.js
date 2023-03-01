@@ -1,5 +1,44 @@
 import styled from 'styled-components';
 
+export const Header = styled.header`
+  display: flex;
+  justify-content: space-between;
+  clear: both;
+  overflow: auto;
+  padding: 0 40px;
+`;
+
+export const Nav = styled.nav`
+  display: none;
+
+  @media (min-width: 885px) {
+    float: right;
+    display: inline-block;
+  }
+`;
+
+export const NavTitle = styled.h1`
+  float: left;
+  font-size: 29px;
+`;
+
+export const InlineDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 20px;
+`;
+
+export const ListItem = styled.li`
+  display: inline-block;
+  padding: 20px;
+  font-size: 20px;
+
+  :hover {
+    color: var(--orange);
+    transition: all 0.3s ease-in-out;
+  }
+`;
+
 export const Button = styled.button`
   padding: 10px;
   color: var(--white);
@@ -82,4 +121,23 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 1300px;
+`;
+
+export const LoadingContainer = styled.div`
+  background: var(--dark_blue);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const JambotronImg = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  overflow: hidden;
 `;

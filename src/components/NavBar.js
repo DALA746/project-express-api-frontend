@@ -1,47 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { Header, InlineDiv, NavTitle, ListItem, Nav } from 'styles/style';
 
 import { TbMovie } from 'react-icons/tb';
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  clear: both;
-  overflow: auto;
-  padding: 0 40px;
-`;
-
-const Nav = styled.nav`
-  display: none;
-
-  @media (min-width: 885px) {
-    float: right;
-    display: inline-block;
-  }
-`;
-
-const Title = styled.h1`
-  float: left;
-  font-size: 29px;
-`;
-
-const InlineDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-`;
-
-const ListItem = styled.li`
-  display: inline-block;
-  padding: 20px;
-  font-size: 20px;
-
-  :hover {
-    color: var(--orange);
-    transition: all 0.3s ease-in-out;
-  }
-`;
 
 export const Navbar = () => {
   return (
@@ -49,7 +10,7 @@ export const Navbar = () => {
       <Link to="/">
         <InlineDiv>
           <TbMovie className="icons" />
-          <Title>MovieTime API</Title>
+          <NavTitle>MovieTime API</NavTitle>
         </InlineDiv>
       </Link>
       <Nav>

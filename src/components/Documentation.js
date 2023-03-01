@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Button } from '../styles/Showlist';
+import { Button } from '../styles/style';
 import jsonImage from '../img/json.png';
 
 const Wrapper = styled.div`
@@ -107,7 +107,7 @@ export const Documentation = () => {
               <h3>Pagination:</h3>
               <TitleWrapper>
                 <Title>GET a specific amount of items:</Title>
-                <Title bgWhite>/shows?page=:value&limit=:value"</Title>
+                <Title bgWhite>/shows?page=:value&limit=:value</Title>
                 <p>
                   Return an array depending on the value of page and limit quiry
                   you have provided.

@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import { TbMovie } from 'react-icons/tb';
 import { BsDisplay } from 'react-icons/bs';
 
+import { fetchData } from 'utils/fetch';
+
 import { Loading } from './Loading';
-import { Button } from '../styles/Showlist';
+import { Button, Card } from '../styles/style';
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,10 +33,6 @@ const SingleShowContainer = styled.div`
     justify-content: end;
   }
 
-  span {
-    font-weight: bold;
-  }
-
   @media (min-width: 885px) {
     width: 700px;
     height: auto;
@@ -44,7 +42,10 @@ const SingleShowContainer = styled.div`
 export const ShowDetails = () => {
   const { showID } = useParams();
   const [show, setShow] = useState([]);
+  const [otherShows, setOtherShows] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { type } = show;
 
   useEffect(() => {
     fetch(
@@ -57,6 +58,11 @@ export const ShowDetails = () => {
       })
       .finally(() => setLoading(false));
   }, [showID]);
+
+  const getData = async () => {
+    const data = await fetchData(`/shows?type=${type}`);
+    setOtherShows(data.response.slice(0, 3));
+  };
 
   return (
     <>
@@ -81,27 +87,42 @@ export const ShowDetails = () => {
               <p />
             ) : (
               <p>
-                <span>Cast:</span> {show.cast}
+                <b>Cast:</b> {show.cast}
               </p>
             )}
             {show.country === '' ? (
               <p />
             ) : (
               <p>
-                <span>Country:</span> {show.country}
+                <b>Country:</b> {show.country}
               </p>
             )}
             {show.description === '' ? <p /> : <p>{show.description}</p>}
             <p>
-              <span>Rating:</span> {show.rating}
+              <b>Rating:</b> {show.rating}
             </p>
             <p>
-              <span>Realese year:</span> {show.release_year}
+              <b>Realese year:</b> {show.release_year}
             </p>
             <p>
-              <span>Type:</span> {show.type}
+              <b>Type:</b> {show.type}
             </p>
           </SingleShowContainer>
+          {/* {otherShows.map((item) => (
+            <Link key={item.show_id} to={`/shows/${item.show_id}`}>
+              <Card key={item.show_id}>
+                <div>
+                  {item.type === 'Movie' ? (
+                    <TbMovie className="icons" />
+                  ) : (
+                    <BsDisplay className="icons" />
+                  )}
+                </div>
+                <h2>{item.title}</h2>
+                {item.description === '' ? <p /> : <p>{item.description}</p>}
+              </Card>
+            </Link>
+          ))} */}
         </Wrapper>
       </div>
     </>

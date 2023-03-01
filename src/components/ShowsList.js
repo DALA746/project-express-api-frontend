@@ -13,7 +13,7 @@ import {
   Container,
   ButtonContainer,
   Wrapper
-} from '../styles/Showlist';
+} from '../styles/style';
 import { fetchData } from '../utils/fetch';
 import { Jambotron } from './Jambotron';
 
@@ -21,11 +21,11 @@ export const ShowList = () => {
   const [shows, setShows] = useState([]);
   const [title, setTitle] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
+  const [pageLimit, setPageLimit] = useState(6);
   const [loading, setLoading] = useState(false);
-  const pageLimit = 10;
-  console.log(shows, 'shows');
 
   useEffect(() => {
+    setPageLimit(6);
     const getData = async () => {
       const data = await fetchData(
         `/shows?page=${pageNumber}&limit=${pageLimit}`
@@ -109,7 +109,7 @@ export const ShowList = () => {
             <Button
               type="button"
               onClick={nextPage}
-              disabled={pageNumber === 10}>
+              disabled={pageNumber === pageLimit}>
               Next Page
             </Button>
           </ButtonContainer>
