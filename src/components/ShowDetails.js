@@ -7,7 +7,7 @@ import { BsDisplay } from 'react-icons/bs';
 import { fetchData } from 'utils/fetch';
 
 import { Loading } from './Loading';
-import { Button, Card } from '../styles/style';
+import { Button } from '../styles/style';
 
 const Wrapper = styled.div`
   display: flex;
@@ -42,10 +42,10 @@ const SingleShowContainer = styled.div`
 export const ShowDetails = () => {
   const { showID } = useParams();
   const [show, setShow] = useState([]);
-  const [otherShows, setOtherShows] = useState([]);
+  // const [otherShows, setOtherShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { type } = show;
+  // const { type } = show;
 
   useEffect(() => {
     fetch(
@@ -58,11 +58,6 @@ export const ShowDetails = () => {
       })
       .finally(() => setLoading(false));
   }, [showID]);
-
-  const getData = async () => {
-    const data = await fetchData(`/shows?type=${type}`);
-    setOtherShows(data.response.slice(0, 3));
-  };
 
   return (
     <>
