@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { TbMovie } from 'react-icons/tb';
 import { BsDisplay } from 'react-icons/bs';
 
-import { fetchData } from 'utils/fetch';
+// import { fetchData } from 'utils/fetch';
 
 import { Loading } from './Loading';
 import { Button } from '../styles/style';
