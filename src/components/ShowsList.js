@@ -18,11 +18,12 @@ import { fetchData } from '../utils/fetch';
 import { Jambotron } from './Jambotron';
 
 export const ShowList = () => {
-  const [shows, setShows] = useState([]);
+  const [shows, setShows] = useState([{}]);
   const [title, setTitle] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const [pageLimit, setPageLimit] = useState(6);
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState(false);
 
   useEffect(() => {
     setPageLimit(6);
@@ -44,15 +45,22 @@ export const ShowList = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const getData = async () => {
-      const data = await fetchData(`/shows?title=${title}`);
-      setShows(data);
-      setLoading(true);
-      setTimeout(() => setLoading(false), 1000);
-    };
-    getData();
+    if (title === '') {
+      alert('Enter your search word!');
+    } else {
+      setSearch(true);
+      event.preventDefault();
+      const getData = async () => {
+        const data = await fetchData(`/shows?title=${title}`);
+        setShows(data);
+        setLoading(true);
+        setTimeout(() => setLoading(false), 1000);
+      };
+      getData();
+    }
   };
+
+  console.log(shows.response); // undefined
 
   return (
     <>
@@ -64,55 +72,63 @@ export const ShowList = () => {
             <input
               type="text"
               value={title}
-              placeholder="Enter title here..."
+              placeholder="Search by title..."
               onChange={(event) => setTitle(event.target.value)}
             />
+
             <Button border type="button" onClick={handleSubmit}>
               Search
             </Button>
           </SearchContainer>
-          <CardContainer>
+          <Wrapper>
             {loading && <Loading />}
-            {shows.success ? (
-              shows.response.map((show) => (
-                <Link key={show.show_id} to={`/shows/${show.show_id}`}>
-                  <Card key={show.show_id}>
-                    <div>
-                      {show.type === 'Movie' ? (
-                        <TbMovie className="icons" />
-                      ) : (
-                        <BsDisplay className="icons" />
-                      )}
-                    </div>
-                    <h2>{show.title}</h2>
-                    {show.description === '' ? (
-                      <p />
-                    ) : (
-                      <p>{show.description}</p>
-                    )}
-                  </Card>
-                </Link>
-              ))
-            ) : (
-              <Container>
-                <p>No results</p>
-              </Container>
+            {search && shows.success && (
+              <p>Found shows: {shows.response?.length}</p>
             )}
-          </CardContainer>
-          <ButtonContainer>
-            <Button
-              type="button"
-              onClick={previousPage}
-              disabled={pageNumber === 1}>
-              Previous Page
-            </Button>
-            <Button
-              type="button"
-              onClick={nextPage}
-              disabled={pageNumber === pageLimit}>
-              Next Page
-            </Button>
-          </ButtonContainer>
+            <CardContainer>
+              {shows.success ? (
+                shows.response.map((show) => (
+                  <Link key={show.show_id} to={`/shows/${show.show_id}`}>
+                    <Card key={show.show_id}>
+                      <div>
+                        {show.type === 'Movie' ? (
+                          <TbMovie className="icons" />
+                        ) : (
+                          <BsDisplay className="icons" />
+                        )}
+                      </div>
+                      <h2>{show.title}</h2>
+                      {show.description === '' ? (
+                        <p />
+                      ) : (
+                        <p>{show.description}</p>
+                      )}
+                    </Card>
+                  </Link>
+                ))
+              ) : (
+                <Container>
+                  <p>No results</p>
+                </Container>
+              )}
+            </CardContainer>
+          </Wrapper>
+          {!search && (
+            <ButtonContainer>
+              <Button
+                type="button"
+                onClick={previousPage}
+                disabled={pageNumber === 1}>
+                Previous Page
+              </Button>
+              <Button
+                type="button"
+                onClick={nextPage}
+                disabled={pageNumber === pageLimit}>
+                Next Page
+              </Button>
+            </ButtonContainer>
+          )}
         </Wrapper>
       </MainContent>
     </>

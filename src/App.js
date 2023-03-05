@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Navbar } from 'components/NavBar';
 import { ShowList } from './components/ShowsList';
 import { ShowDetails } from './components/ShowDetails';
-import { Documentation } from './components/Documentation'
+import { Documentation } from './components/Documentation';
+import { Footer } from './components/Footer';
 
 export const App = () => {
   return (
@@ -22,6 +23,7 @@ export const App = () => {
       <Routes>
         <Route exact path="/documentation" element={<Documentation />} />
       </Routes>
+      <Footer />
     </Router>
-  )
-}
+  );
+};

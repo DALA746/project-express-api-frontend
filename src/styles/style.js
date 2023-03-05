@@ -121,6 +121,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   max-width: 1300px;
+  position: relative;
 `;
 
 export const LoadingContainer = styled.div`
@@ -133,6 +134,7 @@ export const LoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 
 export const JambotronImg = styled.img`
