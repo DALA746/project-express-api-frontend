@@ -1,13 +1,16 @@
-# Project Express Api Frontend
+# Express API Project Frontend
 
-Frontend project for my backend repo: https://dls-shows-api.herokuapp.com/
+This project developed during my time at coding bootcamp. During development, I gained an insight into how the backend works and created my first API. In this latest update, I added a search function with the possibility to search by title to the API.
 
-# View it live
+## What's new?
 
-https://dl-shows-api.netlify.app/
+- Possibility to search by title on frontend.
+- Showing other items from shows array on a single show page.
+- Added documentation as a single page.
 
-# Want to know more about this project?
+This frontend project is just for the demonstration of this API. You can find all links down below.
 
-Follow this link: https://github.com/DALA746/project-express-api
+## View it live
 
-![alt text](https://dl-shows-api.netlify.app/src/img/design.png)
+Backend: https://project-express-api-production.up.railway.app <br />
+Frontend: https://movietime-api.netlify.app/
