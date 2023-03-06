@@ -60,8 +60,6 @@ export const ShowList = () => {
     }
   };
 
-  console.log(shows.response); // undefined
-
   return (
     <>
       <Jambotron />

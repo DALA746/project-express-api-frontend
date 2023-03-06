@@ -3,15 +3,19 @@ import { useParams, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { TbMovie } from 'react-icons/tb';
 import { BsDisplay } from 'react-icons/bs';
+import { fetchData } from '../utils/fetch';
 
 // import { fetchData } from 'utils/fetch';
 
 import { Loading } from './Loading';
-import { Button } from '../styles/style';
+import { Button, Card } from '../styles/style';
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 `;
 
 const ButtonContainer = styled.div`
@@ -39,29 +43,48 @@ const SingleShowContainer = styled.div`
   }
 `;
 
+const OtherShowsWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 20px;
+
+  @media (min-width: 885px) {
+    flex-direction: row;
+  }
+`;
+
 export const ShowDetails = () => {
   const { showID } = useParams();
   const [show, setShow] = useState([]);
-  // const [otherShows, setOtherShows] = useState([]);
+  const [otherShows, setOtherShows] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // const { type } = show;
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetchData('/shows');
+      const random = data.response
+        .sort(() => Math.random() - Math.random())
+        .slice(0, 3);
+      console.log(random);
+      setOtherShows(random);
+    };
+    getData();
+  }, []);
 
   useEffect(() => {
-    fetch(
-      `https://project-express-api-production.up.railway.app/shows/id/${showID}`
-    )
-      .then((res) => res.json())
-      .then((json) => {
-        setShow(json.response);
-        setLoading(false);
-      })
-      .finally(() => setLoading(false));
+    const getData = async () => {
+      const data = await fetchData(`/shows/id/${showID}`);
+      setShow(data.response);
+      setLoading(true);
+      setTimeout(() => setLoading(false), 1000);
+    };
+    getData();
   }, [showID]);
 
   return (
     <>
-      {loading && <Loading />}
       <div>
         <Link to="/shows/">
           <ButtonContainer>
@@ -69,6 +92,7 @@ export const ShowDetails = () => {
           </ButtonContainer>
         </Link>
         <Wrapper>
+          {loading && <Loading />}
           <SingleShowContainer>
             <div>
               {show.type === 'Movie' ? (
@@ -103,21 +127,24 @@ export const ShowDetails = () => {
               <b>Type:</b> {show.type}
             </p>
           </SingleShowContainer>
-          {/* {otherShows.map((item) => (
-            <Link key={item.show_id} to={`/shows/${item.show_id}`}>
-              <Card key={item.show_id}>
-                <div>
-                  {item.type === 'Movie' ? (
-                    <TbMovie className="icons" />
-                  ) : (
-                    <BsDisplay className="icons" />
-                  )}
-                </div>
-                <h2>{item.title}</h2>
-                {item.description === '' ? <p /> : <p>{item.description}</p>}
-              </Card>
-            </Link>
-          ))} */}
+          <h2>Interested in some other shows?</h2>
+          <OtherShowsWrapper>
+            {otherShows.map((item) => (
+              <Link key={item.show_id} to={`/shows/${item.show_id}`}>
+                <Card key={item.show_id}>
+                  <div>
+                    {item.type === 'Movie' ? (
+                      <TbMovie className="icons" />
+                    ) : (
+                      <BsDisplay className="icons" />
+                    )}
+                  </div>
+                  <h2>{item.title}</h2>
+                  {item.description === '' ? <p /> : <p>{item.description}</p>}
+                </Card>
+              </Link>
+            ))}
+          </OtherShowsWrapper>
         </Wrapper>
       </div>
     </>
