@@ -93,24 +93,26 @@ export const Documentation = () => {
                 <Title>GET shows by query:</Title>
                 <Title bgWhite> /shows?title=:value</Title>
                 <p>
-                  This query return a JSON object based on of the value of
-                  quiery you have specified. Replace your query with different
-                  choices such as <b>title</b>, <b>category</b>, <b>year</b> and{' '}
-                  <b>country</b>.
+                  This JSON object is generated according to the query value
+                  that you provide. You can substitute your query with various
+                  options, such as <b>title,</b> <b>category,</b> <b>year,</b>{' '}
+                  and <b>country</b>.
                 </p>
               </TitleWrapper>
               <TitleWrapper>
                 <Title>GET by id:</Title>
                 <Title bgWhite>/shows/id/:id</Title>
-                <p>Return an object based on id you have specified.</p>
+                <p>
+                  Return one specific object based on id you have specified.
+                </p>
               </TitleWrapper>
               <h3>Pagination:</h3>
               <TitleWrapper>
                 <Title>GET a specific amount of items:</Title>
                 <Title bgWhite>/shows?page=:value&limit=:value</Title>
                 <p>
-                  Return an array depending on the value of page and limit quiry
-                  you have provided.
+                  Returns an array depending on the value of a query you have
+                  provided.
                 </p>
               </TitleWrapper>
             </WrapperTitles>

@@ -71,6 +71,7 @@ export const CardContainer = styled.div`
   grid-gap: 40px;
   width: 100%;
   position: relative;
+  margin: 20px 0;
 `;
 
 export const Card = styled.div`
@@ -78,6 +79,7 @@ export const Card = styled.div`
   border-radius: 10px;
   padding: 20px;
   height: 300px;
+  /* max-width: ${(props) => (props.maxwidth ? '240px' : 'none')}; */
 
   :hover {
     background-color: var(--orange);

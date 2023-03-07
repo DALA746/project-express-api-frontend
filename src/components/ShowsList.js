@@ -80,9 +80,9 @@ export const ShowList = () => {
           </SearchContainer>
           <Wrapper>
             {loading && <Loading />}
-            {search && shows.success && (
+            {/* {search && shows.success && (
               <p>Found shows: {shows.response?.length}</p>
-            )}
+            )} */}
             <CardContainer>
               {shows.success ? (
                 shows.response.map((show) => (

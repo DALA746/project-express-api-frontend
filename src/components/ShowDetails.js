@@ -16,6 +16,10 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   position: relative;
+
+  h2 {
+    text-align: center;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -91,8 +95,8 @@ export const ShowDetails = () => {
             <Button type="button">Back to HOME</Button>
           </ButtonContainer>
         </Link>
+        {loading && <Loading />}
         <Wrapper>
-          {loading && <Loading />}
           <SingleShowContainer>
             <div>
               {show.type === 'Movie' ? (
@@ -131,7 +135,7 @@ export const ShowDetails = () => {
           <OtherShowsWrapper>
             {otherShows.map((item) => (
               <Link key={item.show_id} to={`/shows/${item.show_id}`}>
-                <Card key={item.show_id}>
+                <Card maxwidth key={item.show_id}>
                   <div>
                     {item.type === 'Movie' ? (
                       <TbMovie className="icons" />
@@ -139,7 +143,7 @@ export const ShowDetails = () => {
                       <BsDisplay className="icons" />
                     )}
                   </div>
-                  <h2>{item.title}</h2>
+                  <h3>{item.title}</h3>
                   {item.description === '' ? <p /> : <p>{item.description}</p>}
                 </Card>
               </Link>
